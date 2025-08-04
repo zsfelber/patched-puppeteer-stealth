@@ -12,6 +12,10 @@ class Plugin extends PuppeteerExtraPlugin {
     super(opts);
   }
 
+  get requirements() {
+    return new Set(['runLast'])
+  }
+
   beforeLaunch(options) {
     console.log("lastPlugin.beforeLaunch  options:", JSON.stringify(options));
   }
