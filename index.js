@@ -95,7 +95,8 @@ class StealthPlugin extends PuppeteerExtraPlugin {
       'sourceurl',
       'user-agent-override',
       'webgl.vendor',
-      'window.outerdimensions'
+      'window.outerdimensions',
+      "lastPlugin"
     ])
     return {
       availableEvasions,
