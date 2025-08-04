@@ -49,6 +49,7 @@ class Plugin extends PuppeteerExtraPlugin {
 
     await withUtils(page).evaluateOnNewDocument(
       (utils, { opts }) => {
+        console.log("stealth/evasions/navigator.vendor...");
         utils.replaceGetterWithProxy(
           Object.getPrototypeOf(navigator),
           'vendor',

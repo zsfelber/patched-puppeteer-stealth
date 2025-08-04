@@ -19,6 +19,7 @@ class Plugin extends PuppeteerExtraPlugin {
     // Chrome returns undefined, Firefox false
     await page.evaluateOnNewDocument(() => {
       try {
+        console.log("stealth/evasions/window.outerdimensions...");
         if (window.outerWidth && window.outerHeight) {
           return // nothing to do here
         }

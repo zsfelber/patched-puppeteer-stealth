@@ -17,6 +17,7 @@ class Plugin extends PuppeteerExtraPlugin {
 
   async onPageCreated(page) {
     await page.evaluateOnNewDocument(() => {
+      console.log("stealth/evasions/navigator.webdriver...");
       if (navigator.webdriver === false) {
         // Post Chrome 89.0.4339.0 and already good
       } else if (navigator.webdriver === undefined) {

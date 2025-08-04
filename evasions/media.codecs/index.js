@@ -19,6 +19,7 @@ class Plugin extends PuppeteerExtraPlugin {
 
   async onPageCreated(page) {
     await withUtils(page).evaluateOnNewDocument(utils => {
+      console.log("stealth/evasions/media.codecs...");
       /**
        * Input might look funky, we need to normalize it so e.g. whitespace isn't an issue for our spoofing.
        *

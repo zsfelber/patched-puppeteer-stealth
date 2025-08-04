@@ -27,6 +27,7 @@ class Plugin extends PuppeteerExtraPlugin {
   async onPageCreated(page) {
     await withUtils(page).evaluateOnNewDocument((utils, opts) => {
       try {
+        console.log("stealth/evasions/iframe.contentWindow...");
         // Adds a contentWindow proxy to the provided iframe element
         const addContentWindowProxy = iframe => {
           const contentWindowProxy = {

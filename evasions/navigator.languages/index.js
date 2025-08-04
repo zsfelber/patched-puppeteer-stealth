@@ -27,6 +27,7 @@ class Plugin extends PuppeteerExtraPlugin {
   async onPageCreated(page) {
     await withUtils(page).evaluateOnNewDocument(
       (utils, { opts }) => {
+        console.log("stealth/evasions/navigator.languages...");
         const languages = opts.languages.length
           ? opts.languages
           : ['en-US', 'en']

@@ -25,6 +25,7 @@ class Plugin extends PuppeteerExtraPlugin {
   /* global WebGLRenderingContext WebGL2RenderingContext */
   async onPageCreated(page) {
     await withUtils(page).evaluateOnNewDocument((utils, opts) => {
+      console.log("stealth/evasions/webgl.vendor...");
       const getParameterProxyHandler = {
         apply: function(target, ctx, args) {
           const param = (args || [])[0]

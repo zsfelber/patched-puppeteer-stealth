@@ -31,6 +31,7 @@ class Plugin extends PuppeteerExtraPlugin {
   async onPageCreated(page) {
     await withUtils(page).evaluateOnNewDocument(
       (utils, { opts }) => {
+        console.log("stealth/evasions/hardwareConcurrency...");
         utils.replaceGetterWithProxy(
           Object.getPrototypeOf(navigator),
           'hardwareConcurrency',

@@ -41,6 +41,8 @@ class Plugin extends PuppeteerExtraPlugin {
 
     await withUtils(page).evaluateOnNewDocument(
       (utils, { fns, data }) => {
+        console.log("stealth/evasions/navigator.plugins...");
+
         fns = utils.materializeFns(fns)
 
         // That means we're running headful
