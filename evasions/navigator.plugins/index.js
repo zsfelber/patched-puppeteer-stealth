@@ -10,7 +10,7 @@ const { generatePluginArray } = require('./plugins')
 const { generateMagicArray } = require('./magicArray')
 const { generateFunctionMocks } = require('./functionMocks')
 
-const data = require('./data.json')
+//const data = require('./data.json')
 
 /**
  * In headless mode `navigator.mimeTypes` and `navigator.plugins` are empty.
@@ -24,6 +24,7 @@ const data = require('./data.json')
  * @see https://developer.mozilla.org/en-US/docs/Web/API/PluginArray
  */
 class Plugin extends PuppeteerExtraPlugin {
+  data;
   constructor(opts = {}) {
     super(opts)
   }
@@ -33,6 +34,11 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
+    if (!this.data) {
+      this.data = opts.pluginsDataJson || await require('./data.json');
+    }
+    const data = this.data;
+
     await withUtils(page).evaluateOnNewDocument(
       (utils, { fns, data }) => {
         fns = utils.materializeFns(fns)
