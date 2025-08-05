@@ -123,9 +123,11 @@ class Plugin extends PuppeteerExtraPlugin {
     let pbv = pb && pb.version ? await pb.version() : "unknown";
 
     // Full version number from Chrome
-    const uaVersion = ua.includes('Chrome/')
-      ? ua.match(/Chrome\/([\d|.]+)/)[1]
-      : pbv.match(/\/([\d|.]+)/)[1]
+    const chromeVersion = ua.includes('Chrome/')
+      ? ua.match(/Chrome\/([\d|.]+)/)[1] :
+      ( ua.includes('Chromium/') ?
+        ua.match(/Chromium\/([\d|.]+)/)[1]
+      : pbv.match(/\/([\d|.]+)/)[1] );
 
     // Get platform identifier (short or long version)
     const _getPlatform = (extended = false) => {
@@ -141,8 +143,8 @@ class Plugin extends PuppeteerExtraPlugin {
     }
 
     // Source in C++: https://source.chromium.org/chromium/chromium/src/+/master:components/embedder_support/user_agent_utils.cc;l=55-100
-    const _getBrands = () => {
-      const seed = uaVersion.split('.')[0] // the major version number of Chrome
+    const _getChromeBrands = () => {
+      const seed = chromeVersion.split('.')[0] // the major version number of Chrome
 
       const order = [
         [0, 1, 2],
@@ -201,14 +203,16 @@ class Plugin extends PuppeteerExtraPlugin {
       userAgent: ua,
       platform: _getPlatform(),
       userAgentMetadata: {
-        brands: _getBrands(),
-        fullVersion: uaVersion,
+        fullVersion: chromeVersion,
         platform: _getPlatform(true),
         platformVersion: _getPlatformVersion(),
         architecture: _getPlatformArch(),
         model: _getPlatformModel(),
         mobile: _getMobile()
       }
+    }
+    if (chromeVersion) {
+      override.userAgentMetadata.brands = _getChromeBrands();
     }
 
     // In case of headless, override the acceptLanguage in CDP.
