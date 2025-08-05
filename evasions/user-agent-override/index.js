@@ -64,34 +64,58 @@ class Plugin extends PuppeteerExtraPlugin {
 
   async onPageCreated(page) {
     // Determine the full user agent string, strip the "Headless" part
-    let ua = this.opts.userAgent;
+    let ua0, ua = this.opts.userAgent;
+    let pb;
     if (!ua) {
-      let pb = await page.browser();
+      pb = await page.browser();
       if (pb) {
         ua = await pb.userAgent();
         if (ua) {
-          ua = ua.replace('HeadlessChrome/', 'Chrome/')
+          if (ua.indexOf("Headless")!=-1) {
+            ua0 = ua;
+            ua = ua.replace('Headless', '')
+          } else if (ua.indexOf("headless-")!=-1) {
+            ua0 = ua;
+            ua = ua.replace('headless-', '')
+          } else if (ua.indexOf("headless")!=-1) {
+            ua0 = ua;
+            ua = ua.replace('headless', '')
+          }
         }
       }
     }
 
     if (ua) {
-      console.warn("WARN userAgent not found, skip evasion");
+      if (ua0) {
+        console.log(name()," userAgent 'headless' removed:", ua0, "->", ua);
+      } else {
+        console.log(name()," userAgent is not 'headless':", ua);
+      }
+    } else {
+      console.log(name()," userAgent not found, skip evasion");
       return;
     }
+
+    ua0 = undefined;
 
     if (
       this.opts.maskLinux &&
       ua.includes('Linux') &&
       !ua.includes('Android') // Skip Android user agents since they also contain Linux
     ) {
+      ua0 = ua;
       ua = ua.replace(/\(([^)]+)\)/, '(Windows NT 10.0; Win64; x64)') // Replace the first part in parentheses with Windows data
     }
+    if (ua0) {
+      console.log(name()," userAgent windowsized:", ua0, "->", ua);
+    }
+
+    let pbv = pb ? await pb.version() : "unknown";
 
     // Full version number from Chrome
     const uaVersion = ua.includes('Chrome/')
       ? ua.match(/Chrome\/([\d|.]+)/)[1]
-      : (await page.browser().version()).match(/\/([\d|.]+)/)[1]
+      : pbv.match(/\/([\d|.]+)/)[1]
 
     // Get platform identifier (short or long version)
     const _getPlatform = (extended = false) => {
