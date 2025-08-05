@@ -120,7 +120,7 @@ class Plugin extends PuppeteerExtraPlugin {
       console.log(this.name," userAgent windowsized:", ua0, "->", ua);
     }
 
-    let pbv = pb ? await pb.version() : "unknown";
+    let pbv = pb && pb.version ? await pb.version() : "unknown";
 
     // Full version number from Chrome
     const uaVersion = ua.includes('Chrome/')
@@ -214,9 +214,9 @@ class Plugin extends PuppeteerExtraPlugin {
     // In case of headless, override the acceptLanguage in CDP.
     // This is not preferred, as it messed up the header order.
     // On headful, we set the user preference language setting instead.
-    if (this._headless) {
+    //if (this._headless) {
       override.acceptLanguage = this.opts.locale || 'en-US,en'
-    }
+    //}
 
     this.debug('onPageCreated - Will set these user agent options', {
       override,
