@@ -63,7 +63,7 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
-    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+    console.log(this.name, "opts:", JSON.stringify(this.opts));
 
     // Determine the full user agent string, strip the "Headless" part
     let ua0, ua = this.opts.userAgent;

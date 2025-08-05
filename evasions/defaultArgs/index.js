@@ -26,7 +26,7 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async beforeLaunch(options = {}) {
-    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+    console.log(this.name, "opts:", JSON.stringify(this.opts));
     options.ignoreDefaultArgs = options.ignoreDefaultArgs || []
     if (options.ignoreDefaultArgs === true) {
       // that means the user explicitly wants to disable all default arguments

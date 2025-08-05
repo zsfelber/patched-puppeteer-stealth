@@ -34,7 +34,7 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
-    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+    console.log(this.name, "opts:", JSON.stringify(this.opts));
 
     if (!this.data) {
       this.data = this.opts.pluginsDataJson || await require('./data.json');

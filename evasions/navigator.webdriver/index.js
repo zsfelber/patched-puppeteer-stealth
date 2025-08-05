@@ -16,7 +16,7 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
-    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+    console.log(this.name, "opts:", JSON.stringify(this.opts));
 
     await page.evaluateOnNewDocument(() => {
       console.log("stealth/evasions/navigator.webdriver...");

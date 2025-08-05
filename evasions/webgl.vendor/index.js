@@ -24,7 +24,7 @@ class Plugin extends PuppeteerExtraPlugin {
 
   /* global WebGLRenderingContext WebGL2RenderingContext */
   async onPageCreated(page) {
-    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+    console.log(this.name, "opts:", JSON.stringify(this.opts));
 
     await withUtils(page).evaluateOnNewDocument((utils, opts) => {
       console.log("stealth/evasions/webgl.vendor...");
