@@ -31,6 +31,7 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
+    console.log(this.name(), "opts:", JSON.stringify(this.opts));
     await withUtils(page).evaluateOnNewDocument(utils => {
       console.log("stealth/evasions/chrome.csi...");
       if (!window.chrome) {

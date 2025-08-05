@@ -21,6 +21,7 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   onPageCreated(page) {
+    console.log(this.name(), "opts:", JSON.stringify(this.opts));
     console.log("lastPlugin.onPageCreated  page url:", page.url());
   }
   

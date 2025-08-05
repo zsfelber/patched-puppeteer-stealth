@@ -21,6 +21,7 @@ class Plugin extends PuppeteerExtraPlugin {
 
   /* global Notification Permissions PermissionStatus */
   async onPageCreated(page) {
+    console.log(this.name(), "opts:", JSON.stringify(this.opts));
     await withUtils(page).evaluateOnNewDocument((utils, opts) => {
       console.log("stealth/evasions/navigator.permissions...");
       const isSecure = document.location.protocol.startsWith('https')

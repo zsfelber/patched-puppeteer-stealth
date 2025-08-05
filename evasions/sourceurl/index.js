@@ -16,6 +16,8 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
+    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+
     const client =
       page && typeof page._client === 'function' ? page._client() : page._client
     if (!client) {

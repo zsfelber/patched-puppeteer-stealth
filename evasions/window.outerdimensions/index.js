@@ -16,6 +16,8 @@ class Plugin extends PuppeteerExtraPlugin {
   }
 
   async onPageCreated(page) {
+    console.log(this.name(), "opts:", JSON.stringify(this.opts));
+
     // Chrome returns undefined, Firefox false
     await page.evaluateOnNewDocument(() => {
       try {

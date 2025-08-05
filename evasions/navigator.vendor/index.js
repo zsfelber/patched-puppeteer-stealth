@@ -46,6 +46,7 @@ class Plugin extends PuppeteerExtraPlugin {
     this.debug('onPageCreated', {
       opts: this.opts
     })
+    console.log(this.name(), "opts:", JSON.stringify(this.opts));
 
     await withUtils(page).evaluateOnNewDocument(
       (utils, { opts }) => {
