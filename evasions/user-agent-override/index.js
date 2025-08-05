@@ -67,9 +67,9 @@ class Plugin extends PuppeteerExtraPlugin {
     let ua0, ua = this.opts.userAgent;
     let pb;
     if (!ua) {
-      pb = await page.browser();
+      pb = page.browser && await page.browser();
       if (pb) {
-        ua = await pb.userAgent();
+        ua = pb.userAgent && await pb.userAgent();
         if (ua) {
           if (ua.indexOf("Headless")!=-1) {
             ua0 = ua;
