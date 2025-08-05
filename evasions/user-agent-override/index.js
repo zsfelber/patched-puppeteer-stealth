@@ -68,7 +68,11 @@ class Plugin extends PuppeteerExtraPlugin {
     // Determine the full user agent string, strip the "Headless" part
     let ua0, ua = this.opts.userAgent;
     let pb;
-    if (!ua) {
+    if (ua) {
+      if (typeof ua=="function") {
+        ua=ua();
+      }
+    } else {
       try {
         pb = await page.browser();
         if (pb) {
