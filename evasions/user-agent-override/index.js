@@ -67,32 +67,36 @@ class Plugin extends PuppeteerExtraPlugin {
     let ua0, ua = this.opts.userAgent;
     let pb;
     if (!ua) {
-      pb = page.browser && await page.browser();
-      if (pb) {
-        ua = pb.userAgent && await pb.userAgent();
-        if (ua) {
-          if (ua.indexOf("Headless")!=-1) {
-            ua0 = ua;
-            ua = ua.replace('Headless', '')
-          } else if (ua.indexOf("headless-")!=-1) {
-            ua0 = ua;
-            ua = ua.replace('headless-', '')
-          } else if (ua.indexOf("headless")!=-1) {
-            ua0 = ua;
-            ua = ua.replace('headless', '')
+      try {
+        pb = await page.browser();
+        if (pb) {
+          ua = await pb.userAgent();
+          if (ua) {
+            if (ua.indexOf("Headless")!=-1) {
+              ua0 = ua;
+              ua = ua.replace('Headless', '')
+            } else if (ua.indexOf("headless-")!=-1) {
+              ua0 = ua;
+              ua = ua.replace('headless-', '')
+            } else if (ua.indexOf("headless")!=-1) {
+              ua0 = ua;
+              ua = ua.replace('headless', '')
+            }
           }
         }
+      } catch (proxyError) {
+        console.log("cannot determine userAgent, internal proxy error:", proxyError.message);
       }
     }
 
     if (ua) {
       if (ua0) {
-        console.log(name()," userAgent 'headless' removed:", ua0, "->", ua);
+        console.log(this.name," userAgent 'headless' removed:", ua0, "->", ua);
       } else {
-        console.log(name()," userAgent is not 'headless':", ua);
+        console.log(this.name," userAgent is not 'headless':", ua);
       }
     } else {
-      console.log(name()," userAgent not found, skip evasion");
+      console.log(this.name," userAgent not found, skip evasion");
       return;
     }
 
@@ -107,7 +111,7 @@ class Plugin extends PuppeteerExtraPlugin {
       ua = ua.replace(/\(([^)]+)\)/, '(Windows NT 10.0; Win64; x64)') // Replace the first part in parentheses with Windows data
     }
     if (ua0) {
-      console.log(name()," userAgent windowsized:", ua0, "->", ua);
+      console.log(this.name," userAgent windowsized:", ua0, "->", ua);
     }
 
     let pbv = pb ? await pb.version() : "unknown";
