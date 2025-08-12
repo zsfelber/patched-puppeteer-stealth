@@ -120,17 +120,20 @@ class Plugin extends PuppeteerExtraPlugin {
       console.log(this.name," userAgent windowsized:", ua0, "->", ua);
     }
 
-    let pbv = (pb && pb.version) ? await pb.version() : "unknown";
+    //let pbv = (pb && pb.version) ? await pb.version() : "unknown";
+
+    let uam = ua.match(/Chrom(e|ium)\/([\d|.]+)/);
 
     // Full version number from Chrome
-    const chromeVersion = ua.includes('Chrome/')
-      ? ua.match(/Chrome\/([\d|.]+)/)[1] :
-      ( ua.includes('Chromium/') ?
-        ua.match(/Chromium\/([\d|.]+)/)[1] :
-      //( pbv ?
-      //  pbv.match(/\/([\d|.]+)/)[1] :
-        undefined )
-      //  )
+    const chromeVersion = uam && uam[2];
+    // ua.includes('Chrome/')
+    //   ? ua.match(/Chrome\/([\d|.]+)/)[1] :
+    //   ( ua.includes('Chromium/') ?
+    //     ua.match(/Chromium\/([\d|.]+)/)[1] :
+    //   //( pbv ?
+    //   //  pbv.match(/\/([\d|.]+)/)[1] :
+    //     undefined )
+    //   //  )
 
     // Get platform identifier (short or long version)
     const _getPlatform = (extended = false) => {
