@@ -43,17 +43,17 @@
   },
   "devDependencies": {
     "ava": "2.4.0",
-    "documentation-markdown-themes": "^12.1.5",
-    "fpcollect": "^1.0.4",
-    "fpscanner": "^0.1.5",
-    "loop": "^3.0.6",
-    "npm-run-all": "^4.1.5",
+    "documentation-markdown-themes": "12.1.5",
+    "fpcollect": "1.0.4",
+    "fpscanner": "0.1.5",
+    "loop": "3.0.6",
+    "npm-run-all": "4.1.5",
     "puppeteer": "9"
   },
   "dependencies": {
-    "debug": "^4.1.1",
-    "puppeteer-extra-plugin": "^3.2.3",
-    "puppeteer-extra-plugin-user-preferences": "^2.4.1"
+    "debug": "4.1.1",
+    "puppeteer-extra-plugin": "3.2.3",
+    "puppeteer-extra-plugin-user-preferences": "2.4.1"
   },
   "peerDependencies": {
     "playwright-extra": "*",
